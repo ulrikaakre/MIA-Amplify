@@ -10,7 +10,7 @@ import { withAuthenticator } from "@aws-amplify/ui-react-native";
 function App() {
   return (
     <View style={styles.container}>
-      <Text> MIA Todays News Test </Text>
+      <Text> MIA Todays News </Text>
       <StatusBar style="auto" />
     </View>
   );

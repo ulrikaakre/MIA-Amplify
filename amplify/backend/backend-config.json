@@ -1,32 +1,17 @@
 {
   "api": {
     "miaamplify": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "miaamplifye5a3e849"
-        }
-      ],
+      "dependsOn": [],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [
-            {
-              "apiKeyConfig": {
-                "apiKeyExpirationDate": "2024-08-22T17:24:37.831Z",
-                "apiKeyExpirationDays": 365,
-                "description": "content database"
-              },
-              "authenticationType": "API_KEY"
-            }
-          ],
+          "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
-            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "userPoolConfig": {
-              "userPoolId": "authmiaamplifye5a3e849"
-            }
+            "apiKeyConfig": {
+              "apiKeyExpirationDate": "2024-08-23T13:33:14.046Z",
+              "apiKeyExpirationDays": 365,
+              "description": "content and users"
+            },
+            "authenticationType": "API_KEY"
           }
         }
       },

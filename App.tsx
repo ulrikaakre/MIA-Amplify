@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { API, Amplify, graphqlOperation } from "aws-amplify";
 import awsExports from "./src/aws-exports";
@@ -93,9 +93,10 @@ const App = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={{ margin: 20, fontSize: 32 }}> MIA Todays News! </Text>
-      {/* <TextInput
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={{ margin: 20, fontSize: 32 }}> MIA Todays News! </Text>
+        {/* <TextInput
         style={{ borderWidth: 1, padding: 5, margin: 5, width: 150 }}
         placeholder="Title"
         onChangeText={onChangeTitle}
@@ -114,28 +115,28 @@ const App = () => {
         value={text}
       />
       <Button title="Publish" /> */}
-      {textPosts.map((e) => (
-        <View
-          key={e.id}
-          style={{
-            marginBottom: 10,
-            padding: 10,
-            backgroundColor: "lightgray",
-            width: 350,
-            borderRadius: 10,
-          }}
-        >
-          <Text style={{ fontSize: 23 }}>{e.title}</Text>
-          {e.user && (
-            <Text style={{ fontSize: 16, fontStyle: "italic" }}>
-              Username: {e.user.username}
-            </Text>
-          )}
-          <Text style={{ fontSize: 18, marginTop: 10 }}>{e.content}</Text>
-        </View>
-      ))}
+        {textPosts.map((e) => (
+          <View
+            key={e.id}
+            style={{
+              marginBottom: 10,
+              padding: 10,
+              backgroundColor: "lightgray",
+              width: 350,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 23 }}>{e.title}</Text>
+            {e.user && (
+              <Text style={{ fontSize: 16, fontStyle: "italic" }}>
+                Username: {e.user.username}
+              </Text>
+            )}
+            <Text style={{ fontSize: 18, marginTop: 10 }}>{e.content}</Text>
+          </View>
+        ))}
 
-      {/* {videoPosts.map((video) => (
+        {/* {videoPosts.map((video) => (
         <View
           key={video.id}
           style={{
@@ -149,8 +150,9 @@ const App = () => {
         </View>
       ))} */}
 
-      <StatusBar style="auto" />
-    </View>
+        <StatusBar style="auto" />
+      </View>
+    </ScrollView>
   );
 };
 

@@ -96,32 +96,35 @@
 // });
 
 import React from "react";
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StatusBar, StyleSheet, Text, View } from "react-native";
+
+const windowHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    // flex: 1,
+    // backgroundColor: "#fff",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
 });
 
 const TextPost = ({ textPosts }: any) => {
-  console.log(textPosts.title);
   return (
     <View style={styles.container}>
-      <Text style={{ margin: 20, fontSize: 32 }}> MIA Todays News! </Text>
       {textPosts.map((e: any) => (
         <View
           key={e.id}
-          style={{
-            marginBottom: 10,
-            padding: 10,
-            backgroundColor: "lightgray",
-            width: 350,
-            borderRadius: 10,
-          }}
+          style={
+            {
+              // marginBottom: 10,
+              // padding: 10,
+              // backgroundColor: "lightgray",
+              // width: 350,
+              // height: windowHeight,
+              // borderRadius: 10,
+            }
+          }
         >
           <Text style={{ fontSize: 23 }}>{e.title}</Text>
           {e.user && (

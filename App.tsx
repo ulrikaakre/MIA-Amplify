@@ -89,12 +89,13 @@
 import { withAuthenticator } from "@aws-amplify/ui-react-native";
 import { API, Amplify, graphqlOperation } from "aws-amplify";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import awsExports from "./src/aws-exports";
 Amplify.configure(awsExports);
 
-import TextPost from "./src/components/textPost";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { listTextPosts } from "./src/graphql/queries";
+import MainNavigation from "./src/navigation/MainNavigation";
 
 const App = () => {
   const [textPosts, setTextPosts] = useState([]);
@@ -104,6 +105,10 @@ const App = () => {
       try {
         const res = await API.graphql(graphqlOperation(listTextPosts));
         setTextPosts(res.data.listTextPosts.items);
+        console.log(
+          "halla",
+          res.data.listTextPosts.items.map((item) => item.title)
+        );
       } catch (err) {
         console.log("Text Post fetch error: ", err);
       }
@@ -112,21 +117,18 @@ const App = () => {
     fetchTextPost();
   }, []);
 
-  return (
-    <SafeAreaView>
-      <Text> Halla </Text>
-      <TextPost textPosts={textPosts} />
-    </SafeAreaView>
-  );
+  const Stack = createNativeStackNavigator();
+
+  return <MainNavigation />;
 };
 
 export default withAuthenticator(App);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    // flex: 1,
+    // backgroundColor: "#fff",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
 });

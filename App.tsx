@@ -87,35 +87,34 @@
 // });
 
 import { withAuthenticator } from "@aws-amplify/ui-react-native";
-import { API, Amplify, graphqlOperation } from "aws-amplify";
-import React, { useEffect, useState } from "react";
+import { Amplify } from "aws-amplify";
+import React from "react";
 import { StyleSheet } from "react-native";
 import awsExports from "./src/aws-exports";
 Amplify.configure(awsExports);
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { listTextPosts } from "./src/graphql/queries";
 import MainNavigation from "./src/navigation/MainNavigation";
 
 const App = () => {
-  const [textPosts, setTextPosts] = useState([]);
+  // const [textPosts, setTextPosts] = useState([]);
 
-  useEffect(() => {
-    const fetchTextPost = async () => {
-      try {
-        const res = await API.graphql(graphqlOperation(listTextPosts));
-        setTextPosts(res.data.listTextPosts.items);
-        console.log(
-          "halla",
-          res.data.listTextPosts.items.map((item) => item.title)
-        );
-      } catch (err) {
-        console.log("Text Post fetch error: ", err);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchTextPost = async () => {
+  //     try {
+  //       const res = await API.graphql(graphqlOperation(listTextPosts));
+  //       setTextPosts(res.data.listTextPosts.items);
+  //       console.log(
+  //         "halla",
+  //         res.data.listTextPosts.items.map((item) => item.title)
+  //       );
+  //     } catch (err) {
+  //       console.log("Text Post fetch error: ", err);
+  //     }
+  //   };
 
-    fetchTextPost();
-  }, []);
+  //   fetchTextPost();
+  // }, []);
 
   const Stack = createNativeStackNavigator();
 

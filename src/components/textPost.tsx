@@ -135,7 +135,7 @@ const TextPost = ({ textPosts }: any) => {
           <Text style={{ fontSize: 18, marginTop: 10 }}>{e.content}</Text>
         </View>
       ))}
-      <StatusBar style="auto" />
+      <StatusBar />
     </View>
   );
 };

@@ -1,14 +1,15 @@
+import { useAuthenticator } from "@aws-amplify/ui-react-native";
 import { API, graphqlOperation } from "aws-amplify";
 import React, { useEffect, useState } from "react";
-import { Dimensions, FlatList, Text, View } from "react-native";
+import { Button, Dimensions, FlatList, Text, View } from "react-native";
 import { listTextPosts } from "../graphql/queries";
 
 interface TextPost {
-  __typename: String;
   createdAt: Date;
   id: String;
   title: String;
   content: String;
+  user: Object;
 }
 
 interface GraphQLResult<T> {
@@ -25,6 +26,7 @@ const TocScroll = () => {
   const arr = [1, 2, 3, 4, 5];
 
   const [textPosts, setTextPosts] = useState<TextPost[]>([]);
+  const { signOut } = useAuthenticator();
 
   useEffect(() => {
     const fetchTextPost = async () => {
@@ -36,7 +38,7 @@ const TocScroll = () => {
         setTextPosts(res.data.listTextPosts.items);
         console.log(
           "halla",
-          res.data.listTextPosts.items.map((item: TextPost) => item.content)
+          res.data.listTextPosts.items.map((item: TextPost) => item)
         );
       } catch (err) {
         console.log("Text Post fetch error: ", err);
@@ -72,17 +74,21 @@ const TocScroll = () => {
         >
           {item.title}
         </Text>
+        <Text> {item.user ? item.user.username : "Anonymous"} </Text>
         <Text style={{ fontSize: 18, lineHeight: 20 }}>{item.content}</Text>
       </View>
     );
   };
   return (
-    <FlatList
-      data={textPosts}
-      renderItem={renderItem}
-      // pagingEnabled
-      // keyExtractor={(item): any => item}
-    />
+    <>
+      <Button title="Sign Out" onPress={signOut} />
+      <FlatList
+        data={textPosts}
+        renderItem={renderItem}
+        // pagingEnabled
+        // keyExtractor={(item): any => item}
+      />
+    </>
   );
 };
 

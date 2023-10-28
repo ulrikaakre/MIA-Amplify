@@ -1,0 +1,24 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "api": {
+      "miaamplify": [
+        "Mutation"
+      ]
+    }
+  },
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "apiMiaamplifyGraphqlapiendpointoutput",
+      "environmentVariableName": "API_MIAAMPLIFY_GRAPHQLAPIENDPOINTOUTPUT"
+    },
+    {
+      "cloudFormationParameterName": "apiMiaamplifyGraphqlapiidoutput",
+      "environmentVariableName": "API_MIAAMPLIFY_GRAPHQLAPIIDOUTPUT"
+    },
+    {
+      "cloudFormationParameterName": "apiMiaamplifyGraphqlapikeyoutput",
+      "environmentVariableName": "API_MIAAMPLIFY_GRAPHQLAPIKEYOUTPUT"
+    }
+  ]
+}

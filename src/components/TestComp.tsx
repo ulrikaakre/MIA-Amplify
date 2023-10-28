@@ -89,7 +89,7 @@ export const TextPosts: React.FC = () => {
       const newPost = {
         title: postTitle,
         content: postContent,
-        // userTextsId: currentUser.attributes.sub, // Assuming 'sub' is the unique ID for the user
+        userTextsId: currentUser.attributes.sub, // Assuming 'sub' is the unique ID for the user
       };
 
       console.log("---post: ", newPost);

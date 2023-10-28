@@ -44,5 +44,65 @@
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
     }
+  },
+  "function": {
+    "miaamplifyd794a481": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "miaamplify"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_miaamplifyd794a481_apiMiaamplifyGraphqlapiendpointoutput": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "miaamplifyd794a481"
+        }
+      ]
+    },
+    "AMPLIFY_function_miaamplifyd794a481_apiMiaamplifyGraphqlapiidoutput": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "miaamplifyd794a481"
+        }
+      ]
+    },
+    "AMPLIFY_function_miaamplifyd794a481_apiMiaamplifyGraphqlapikeyoutput": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "miaamplifyd794a481"
+        }
+      ]
+    },
+    "AMPLIFY_function_miaamplifyd794a481_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "miaamplifyd794a481"
+        }
+      ]
+    },
+    "AMPLIFY_function_miaamplifyd794a481_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "miaamplifyd794a481"
+        }
+      ]
+    }
   }
 }

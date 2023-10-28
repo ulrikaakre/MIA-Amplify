@@ -17,6 +17,15 @@
       },
       "api": {
         "miaamplify": {}
+      },
+      "function": {
+        "miaamplifyd794a481": {
+          "deploymentBucketName": "amplify-miaamplify-dev-233505-deployment",
+          "s3Key": "amplify-builds/miaamplifyd794a481-39445978645a7553454b-build.zip",
+          "apiMiaamplifyGraphqlapiendpointoutput": "https://4cv3j245xzf2tjyrfhtzx65nr4.appsync-api.eu-north-1.amazonaws.com/graphql",
+          "apiMiaamplifyGraphqlapiidoutput": "ylxwvlkt3vejlo7u6qq5qlxv6e",
+          "apiMiaamplifyGraphqlapikeyoutput": "da2-g26yv5mqsvffxlr2rwytme32be"
+        }
       }
     }
   }

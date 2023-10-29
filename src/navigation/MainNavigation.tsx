@@ -6,18 +6,22 @@ import TestComp from "../components/TestComp";
 import TocScroll from "../components/TocScroll";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
+import Profile from "../components/Profile";
 
 type IconName =
   | "newspaper"
   | "newspaper-outline"
-  | "add-circle"
-  | "add-circle-outline";
+  | "rocket-sharp"
+  | "rocket-outline"
+  | "person-sharp"
+  | "person-outline";
 
 const MainNavigation = () => {
   const Tab = createBottomTabNavigator();
 
   const feedName = "Feed";
   const addName = "Add";
+  const profileName = "Profile";
 
   return (
     <NavigationContainer>
@@ -30,14 +34,18 @@ const MainNavigation = () => {
             if (rn === feedName) {
               iconName = focused ? "newspaper" : "newspaper-outline";
             } else if (rn === addName) {
-              iconName = focused ? "add-circle" : "add-circle-outline";
+              iconName = focused ? "rocket-sharp" : "rocket-outline";
+            } else if (rn === profileName) {
+              iconName = focused ? "person-sharp" : "person-outline";
             }
             return <Ionicons name={iconName} size={32} />;
           },
+          headerShown: false,
         })}
       >
         <Tab.Screen name={feedName} component={TocScroll} />
         <Tab.Screen name={addName} component={TestComp} />
+        <Tab.Screen name={profileName} component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
   );

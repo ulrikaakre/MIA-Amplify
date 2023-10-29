@@ -47,7 +47,7 @@
 
 import { API, Auth, graphqlOperation } from "aws-amplify";
 import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, TextInput, View } from "react-native";
+import { Button, SafeAreaView, StyleSheet, TextInput } from "react-native";
 // import { v4 as uuid } from "uuid";
 
 // Assuming you have exported your GraphQL operations, import them here.
@@ -100,7 +100,7 @@ export const TextPosts: React.FC = () => {
   };
 
   return (
-    <View style={{ padding: 20 }}>
+    <SafeAreaView style={{ padding: 20 }}>
       <TextInput
         value={postTitle}
         placeholder="Enter post title"
@@ -115,7 +115,7 @@ export const TextPosts: React.FC = () => {
         multiline
       />
       <Button title="Add New Text Post" onPress={addNewTextPost} />
-    </View>
+    </SafeAreaView>
   );
 };
 

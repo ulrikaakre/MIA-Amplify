@@ -18,9 +18,23 @@ type VideoPost @model {
   user: User @belongsTo
 }
 
+type Category @model {
+  id: ID!
+  name: String!
+  SubTheme: [SubTheme] @hasMany
+}
+
+type SubTheme @model {
+  id: ID!
+  name: String!
+  TextPost: [TextPost] @hasMany
+  Category: Category @belongsTo
+}
+
 type TextPost @model {
   id: ID!
   title: String!
   content: String!
   user: User @belongsTo
+  SubTheme: SubTheme @belongsTo
 }

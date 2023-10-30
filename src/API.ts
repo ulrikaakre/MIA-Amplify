@@ -96,9 +96,37 @@ export type TextPost = {
   title: string,
   content: string,
   user?: User | null,
+  SubTheme?: SubTheme | null,
   createdAt: string,
   updatedAt: string,
   userTextsId?: string | null,
+  subThemeTextPostId?: string | null,
+};
+
+export type SubTheme = {
+  __typename: "SubTheme",
+  id: string,
+  name: string,
+  TextPost?: ModelTextPostConnection | null,
+  Category?: Category | null,
+  createdAt: string,
+  updatedAt: string,
+  categorySubThemeId?: string | null,
+};
+
+export type Category = {
+  __typename: "Category",
+  id: string,
+  name: string,
+  SubTheme?: ModelSubThemeConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelSubThemeConnection = {
+  __typename: "ModelSubThemeConnection",
+  items:  Array<SubTheme | null >,
+  nextToken?: string | null,
 };
 
 export type UpdateUserInput = {
@@ -154,11 +182,57 @@ export type DeleteVideoPostInput = {
   id: string,
 };
 
+export type CreateCategoryInput = {
+  id?: string | null,
+  name: string,
+};
+
+export type ModelCategoryConditionInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelCategoryConditionInput | null > | null,
+  or?: Array< ModelCategoryConditionInput | null > | null,
+  not?: ModelCategoryConditionInput | null,
+};
+
+export type UpdateCategoryInput = {
+  id: string,
+  name?: string | null,
+};
+
+export type DeleteCategoryInput = {
+  id: string,
+};
+
+export type CreateSubThemeInput = {
+  id?: string | null,
+  name: string,
+  categorySubThemeId?: string | null,
+};
+
+export type ModelSubThemeConditionInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelSubThemeConditionInput | null > | null,
+  or?: Array< ModelSubThemeConditionInput | null > | null,
+  not?: ModelSubThemeConditionInput | null,
+  categorySubThemeId?: ModelIDInput | null,
+};
+
+export type UpdateSubThemeInput = {
+  id: string,
+  name?: string | null,
+  categorySubThemeId?: string | null,
+};
+
+export type DeleteSubThemeInput = {
+  id: string,
+};
+
 export type CreateTextPostInput = {
   id?: string | null,
   title: string,
   content: string,
   userTextsId?: string | null,
+  subThemeTextPostId?: string | null,
 };
 
 export type ModelTextPostConditionInput = {
@@ -168,6 +242,7 @@ export type ModelTextPostConditionInput = {
   or?: Array< ModelTextPostConditionInput | null > | null,
   not?: ModelTextPostConditionInput | null,
   userTextsId?: ModelIDInput | null,
+  subThemeTextPostId?: ModelIDInput | null,
 };
 
 export type UpdateTextPostInput = {
@@ -175,6 +250,7 @@ export type UpdateTextPostInput = {
   title?: string | null,
   content?: string | null,
   userTextsId?: string | null,
+  subThemeTextPostId?: string | null,
 };
 
 export type DeleteTextPostInput = {
@@ -206,6 +282,29 @@ export type ModelVideoPostFilterInput = {
   userVideosId?: ModelIDInput | null,
 };
 
+export type ModelCategoryFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  and?: Array< ModelCategoryFilterInput | null > | null,
+  or?: Array< ModelCategoryFilterInput | null > | null,
+  not?: ModelCategoryFilterInput | null,
+};
+
+export type ModelCategoryConnection = {
+  __typename: "ModelCategoryConnection",
+  items:  Array<Category | null >,
+  nextToken?: string | null,
+};
+
+export type ModelSubThemeFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  and?: Array< ModelSubThemeFilterInput | null > | null,
+  or?: Array< ModelSubThemeFilterInput | null > | null,
+  not?: ModelSubThemeFilterInput | null,
+  categorySubThemeId?: ModelIDInput | null,
+};
+
 export type ModelTextPostFilterInput = {
   id?: ModelIDInput | null,
   title?: ModelStringInput | null,
@@ -214,6 +313,7 @@ export type ModelTextPostFilterInput = {
   or?: Array< ModelTextPostFilterInput | null > | null,
   not?: ModelTextPostFilterInput | null,
   userTextsId?: ModelIDInput | null,
+  subThemeTextPostId?: ModelIDInput | null,
 };
 
 export type ModelSubscriptionUserFilterInput = {
@@ -262,6 +362,20 @@ export type ModelSubscriptionVideoPostFilterInput = {
   or?: Array< ModelSubscriptionVideoPostFilterInput | null > | null,
 };
 
+export type ModelSubscriptionCategoryFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionCategoryFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCategoryFilterInput | null > | null,
+};
+
+export type ModelSubscriptionSubThemeFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionSubThemeFilterInput | null > | null,
+  or?: Array< ModelSubscriptionSubThemeFilterInput | null > | null,
+};
+
 export type ModelSubscriptionTextPostFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   title?: ModelSubscriptionStringInput | null,
@@ -304,6 +418,7 @@ export type CreateUserMutation = {
         createdAt: string,
         updatedAt: string,
         userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -346,6 +461,7 @@ export type UpdateUserMutation = {
         createdAt: string,
         updatedAt: string,
         userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -388,6 +504,7 @@ export type DeleteUserMutation = {
         createdAt: string,
         updatedAt: string,
         userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -495,6 +612,210 @@ export type DeleteVideoPostMutation = {
   } | null,
 };
 
+export type CreateCategoryMutationVariables = {
+  input: CreateCategoryInput,
+  condition?: ModelCategoryConditionInput | null,
+};
+
+export type CreateCategoryMutation = {
+  createCategory?:  {
+    __typename: "Category",
+    id: string,
+    name: string,
+    SubTheme?:  {
+      __typename: "ModelSubThemeConnection",
+      items:  Array< {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateCategoryMutationVariables = {
+  input: UpdateCategoryInput,
+  condition?: ModelCategoryConditionInput | null,
+};
+
+export type UpdateCategoryMutation = {
+  updateCategory?:  {
+    __typename: "Category",
+    id: string,
+    name: string,
+    SubTheme?:  {
+      __typename: "ModelSubThemeConnection",
+      items:  Array< {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteCategoryMutationVariables = {
+  input: DeleteCategoryInput,
+  condition?: ModelCategoryConditionInput | null,
+};
+
+export type DeleteCategoryMutation = {
+  deleteCategory?:  {
+    __typename: "Category",
+    id: string,
+    name: string,
+    SubTheme?:  {
+      __typename: "ModelSubThemeConnection",
+      items:  Array< {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateSubThemeMutationVariables = {
+  input: CreateSubThemeInput,
+  condition?: ModelSubThemeConditionInput | null,
+};
+
+export type CreateSubThemeMutation = {
+  createSubTheme?:  {
+    __typename: "SubTheme",
+    id: string,
+    name: string,
+    TextPost?:  {
+      __typename: "ModelTextPostConnection",
+      items:  Array< {
+        __typename: "TextPost",
+        id: string,
+        title: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      name: string,
+      SubTheme?:  {
+        __typename: "ModelSubThemeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    categorySubThemeId?: string | null,
+  } | null,
+};
+
+export type UpdateSubThemeMutationVariables = {
+  input: UpdateSubThemeInput,
+  condition?: ModelSubThemeConditionInput | null,
+};
+
+export type UpdateSubThemeMutation = {
+  updateSubTheme?:  {
+    __typename: "SubTheme",
+    id: string,
+    name: string,
+    TextPost?:  {
+      __typename: "ModelTextPostConnection",
+      items:  Array< {
+        __typename: "TextPost",
+        id: string,
+        title: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      name: string,
+      SubTheme?:  {
+        __typename: "ModelSubThemeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    categorySubThemeId?: string | null,
+  } | null,
+};
+
+export type DeleteSubThemeMutationVariables = {
+  input: DeleteSubThemeInput,
+  condition?: ModelSubThemeConditionInput | null,
+};
+
+export type DeleteSubThemeMutation = {
+  deleteSubTheme?:  {
+    __typename: "SubTheme",
+    id: string,
+    name: string,
+    TextPost?:  {
+      __typename: "ModelTextPostConnection",
+      items:  Array< {
+        __typename: "TextPost",
+        id: string,
+        title: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      name: string,
+      SubTheme?:  {
+        __typename: "ModelSubThemeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    categorySubThemeId?: string | null,
+  } | null,
+};
+
 export type CreateTextPostMutationVariables = {
   input: CreateTextPostInput,
   condition?: ModelTextPostConditionInput | null,
@@ -522,9 +843,29 @@ export type CreateTextPostMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    SubTheme?:  {
+      __typename: "SubTheme",
+      id: string,
+      name: string,
+      TextPost?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      Category?:  {
+        __typename: "Category",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      categorySubThemeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userTextsId?: string | null,
+    subThemeTextPostId?: string | null,
   } | null,
 };
 
@@ -555,9 +896,29 @@ export type UpdateTextPostMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    SubTheme?:  {
+      __typename: "SubTheme",
+      id: string,
+      name: string,
+      TextPost?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      Category?:  {
+        __typename: "Category",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      categorySubThemeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userTextsId?: string | null,
+    subThemeTextPostId?: string | null,
   } | null,
 };
 
@@ -588,9 +949,29 @@ export type DeleteTextPostMutation = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    SubTheme?:  {
+      __typename: "SubTheme",
+      id: string,
+      name: string,
+      TextPost?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      Category?:  {
+        __typename: "Category",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      categorySubThemeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userTextsId?: string | null,
+    subThemeTextPostId?: string | null,
   } | null,
 };
 
@@ -627,6 +1008,7 @@ export type GetUserQuery = {
         createdAt: string,
         updatedAt: string,
         userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -726,6 +1108,128 @@ export type ListVideoPostsQuery = {
   } | null,
 };
 
+export type GetCategoryQueryVariables = {
+  id: string,
+};
+
+export type GetCategoryQuery = {
+  getCategory?:  {
+    __typename: "Category",
+    id: string,
+    name: string,
+    SubTheme?:  {
+      __typename: "ModelSubThemeConnection",
+      items:  Array< {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListCategoriesQueryVariables = {
+  filter?: ModelCategoryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListCategoriesQuery = {
+  listCategories?:  {
+    __typename: "ModelCategoryConnection",
+    items:  Array< {
+      __typename: "Category",
+      id: string,
+      name: string,
+      SubTheme?:  {
+        __typename: "ModelSubThemeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetSubThemeQueryVariables = {
+  id: string,
+};
+
+export type GetSubThemeQuery = {
+  getSubTheme?:  {
+    __typename: "SubTheme",
+    id: string,
+    name: string,
+    TextPost?:  {
+      __typename: "ModelTextPostConnection",
+      items:  Array< {
+        __typename: "TextPost",
+        id: string,
+        title: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      name: string,
+      SubTheme?:  {
+        __typename: "ModelSubThemeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    categorySubThemeId?: string | null,
+  } | null,
+};
+
+export type ListSubThemesQueryVariables = {
+  filter?: ModelSubThemeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListSubThemesQuery = {
+  listSubThemes?:  {
+    __typename: "ModelSubThemeConnection",
+    items:  Array< {
+      __typename: "SubTheme",
+      id: string,
+      name: string,
+      TextPost?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      Category?:  {
+        __typename: "Category",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      categorySubThemeId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetTextPostQueryVariables = {
   id: string,
 };
@@ -752,9 +1256,29 @@ export type GetTextPostQuery = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    SubTheme?:  {
+      __typename: "SubTheme",
+      id: string,
+      name: string,
+      TextPost?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      Category?:  {
+        __typename: "Category",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      categorySubThemeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userTextsId?: string | null,
+    subThemeTextPostId?: string | null,
   } | null,
 };
 
@@ -780,9 +1304,18 @@ export type ListTextPostsQuery = {
         createdAt: string,
         updatedAt: string,
       } | null,
+      SubTheme?:  {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userTextsId?: string | null,
+      subThemeTextPostId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -821,6 +1354,7 @@ export type OnCreateUserSubscription = {
         createdAt: string,
         updatedAt: string,
         userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -862,6 +1396,7 @@ export type OnUpdateUserSubscription = {
         createdAt: string,
         updatedAt: string,
         userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -903,6 +1438,7 @@ export type OnDeleteUserSubscription = {
         createdAt: string,
         updatedAt: string,
         userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1007,6 +1543,204 @@ export type OnDeleteVideoPostSubscription = {
   } | null,
 };
 
+export type OnCreateCategorySubscriptionVariables = {
+  filter?: ModelSubscriptionCategoryFilterInput | null,
+};
+
+export type OnCreateCategorySubscription = {
+  onCreateCategory?:  {
+    __typename: "Category",
+    id: string,
+    name: string,
+    SubTheme?:  {
+      __typename: "ModelSubThemeConnection",
+      items:  Array< {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateCategorySubscriptionVariables = {
+  filter?: ModelSubscriptionCategoryFilterInput | null,
+};
+
+export type OnUpdateCategorySubscription = {
+  onUpdateCategory?:  {
+    __typename: "Category",
+    id: string,
+    name: string,
+    SubTheme?:  {
+      __typename: "ModelSubThemeConnection",
+      items:  Array< {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteCategorySubscriptionVariables = {
+  filter?: ModelSubscriptionCategoryFilterInput | null,
+};
+
+export type OnDeleteCategorySubscription = {
+  onDeleteCategory?:  {
+    __typename: "Category",
+    id: string,
+    name: string,
+    SubTheme?:  {
+      __typename: "ModelSubThemeConnection",
+      items:  Array< {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateSubThemeSubscriptionVariables = {
+  filter?: ModelSubscriptionSubThemeFilterInput | null,
+};
+
+export type OnCreateSubThemeSubscription = {
+  onCreateSubTheme?:  {
+    __typename: "SubTheme",
+    id: string,
+    name: string,
+    TextPost?:  {
+      __typename: "ModelTextPostConnection",
+      items:  Array< {
+        __typename: "TextPost",
+        id: string,
+        title: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      name: string,
+      SubTheme?:  {
+        __typename: "ModelSubThemeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    categorySubThemeId?: string | null,
+  } | null,
+};
+
+export type OnUpdateSubThemeSubscriptionVariables = {
+  filter?: ModelSubscriptionSubThemeFilterInput | null,
+};
+
+export type OnUpdateSubThemeSubscription = {
+  onUpdateSubTheme?:  {
+    __typename: "SubTheme",
+    id: string,
+    name: string,
+    TextPost?:  {
+      __typename: "ModelTextPostConnection",
+      items:  Array< {
+        __typename: "TextPost",
+        id: string,
+        title: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      name: string,
+      SubTheme?:  {
+        __typename: "ModelSubThemeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    categorySubThemeId?: string | null,
+  } | null,
+};
+
+export type OnDeleteSubThemeSubscriptionVariables = {
+  filter?: ModelSubscriptionSubThemeFilterInput | null,
+};
+
+export type OnDeleteSubThemeSubscription = {
+  onDeleteSubTheme?:  {
+    __typename: "SubTheme",
+    id: string,
+    name: string,
+    TextPost?:  {
+      __typename: "ModelTextPostConnection",
+      items:  Array< {
+        __typename: "TextPost",
+        id: string,
+        title: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    Category?:  {
+      __typename: "Category",
+      id: string,
+      name: string,
+      SubTheme?:  {
+        __typename: "ModelSubThemeConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    categorySubThemeId?: string | null,
+  } | null,
+};
+
 export type OnCreateTextPostSubscriptionVariables = {
   filter?: ModelSubscriptionTextPostFilterInput | null,
 };
@@ -1033,9 +1767,29 @@ export type OnCreateTextPostSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    SubTheme?:  {
+      __typename: "SubTheme",
+      id: string,
+      name: string,
+      TextPost?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      Category?:  {
+        __typename: "Category",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      categorySubThemeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userTextsId?: string | null,
+    subThemeTextPostId?: string | null,
   } | null,
 };
 
@@ -1065,9 +1819,29 @@ export type OnUpdateTextPostSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    SubTheme?:  {
+      __typename: "SubTheme",
+      id: string,
+      name: string,
+      TextPost?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      Category?:  {
+        __typename: "Category",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      categorySubThemeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userTextsId?: string | null,
+    subThemeTextPostId?: string | null,
   } | null,
 };
 
@@ -1097,8 +1871,28 @@ export type OnDeleteTextPostSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+    SubTheme?:  {
+      __typename: "SubTheme",
+      id: string,
+      name: string,
+      TextPost?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      Category?:  {
+        __typename: "Category",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      categorySubThemeId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userTextsId?: string | null,
+    subThemeTextPostId?: string | null,
   } | null,
 };

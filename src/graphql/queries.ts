@@ -29,6 +29,7 @@ export const getUser = /* GraphQL */ `
           createdAt
           updatedAt
           userTextsId
+          subThemeTextPostId
           __typename
         }
         nextToken
@@ -126,6 +127,120 @@ export const listVideoPosts = /* GraphQL */ `
     }
   }
 `;
+export const getCategory = /* GraphQL */ `
+  query GetCategory($id: ID!) {
+    getCategory(id: $id) {
+      id
+      name
+      SubTheme {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listCategories = /* GraphQL */ `
+  query ListCategories(
+    $filter: ModelCategoryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCategories(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        SubTheme {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getSubTheme = /* GraphQL */ `
+  query GetSubTheme($id: ID!) {
+    getSubTheme(id: $id) {
+      id
+      name
+      TextPost {
+        items {
+          id
+          title
+          content
+          createdAt
+          updatedAt
+          userTextsId
+          subThemeTextPostId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Category {
+        id
+        name
+        SubTheme {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      categorySubThemeId
+      __typename
+    }
+  }
+`;
+export const listSubThemes = /* GraphQL */ `
+  query ListSubThemes(
+    $filter: ModelSubThemeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSubThemes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        TextPost {
+          nextToken
+          __typename
+        }
+        Category {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        categorySubThemeId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const getTextPost = /* GraphQL */ `
   query GetTextPost($id: ID!) {
     getTextPost(id: $id) {
@@ -148,9 +263,29 @@ export const getTextPost = /* GraphQL */ `
         updatedAt
         __typename
       }
+      SubTheme {
+        id
+        name
+        TextPost {
+          nextToken
+          __typename
+        }
+        Category {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        categorySubThemeId
+        __typename
+      }
       createdAt
       updatedAt
       userTextsId
+      subThemeTextPostId
       __typename
     }
   }
@@ -174,9 +309,18 @@ export const listTextPosts = /* GraphQL */ `
           updatedAt
           __typename
         }
+        SubTheme {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
         createdAt
         updatedAt
         userTextsId
+        subThemeTextPostId
         __typename
       }
       nextToken

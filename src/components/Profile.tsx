@@ -57,7 +57,7 @@ const Profile = () => {
           source={require("../../assets/avatar.png")}
           style={styles.image}
         />
-        <Text style={styles.text}> Ola Nordmann 🔥6 </Text>
+        <Text style={styles.text}> Ola Nordmann 🔥6! </Text>
       </SafeAreaView>
 
       <MyTabs />

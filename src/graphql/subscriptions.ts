@@ -29,6 +29,7 @@ export const onCreateUser = /* GraphQL */ `
           createdAt
           updatedAt
           userTextsId
+          subThemeTextPostId
           __typename
         }
         nextToken
@@ -67,6 +68,7 @@ export const onUpdateUser = /* GraphQL */ `
           createdAt
           updatedAt
           userTextsId
+          subThemeTextPostId
           __typename
         }
         nextToken
@@ -105,6 +107,7 @@ export const onDeleteUser = /* GraphQL */ `
           createdAt
           updatedAt
           userTextsId
+          subThemeTextPostId
           __typename
         }
         nextToken
@@ -209,6 +212,186 @@ export const onDeleteVideoPost = /* GraphQL */ `
     }
   }
 `;
+export const onCreateCategory = /* GraphQL */ `
+  subscription OnCreateCategory($filter: ModelSubscriptionCategoryFilterInput) {
+    onCreateCategory(filter: $filter) {
+      id
+      name
+      SubTheme {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateCategory = /* GraphQL */ `
+  subscription OnUpdateCategory($filter: ModelSubscriptionCategoryFilterInput) {
+    onUpdateCategory(filter: $filter) {
+      id
+      name
+      SubTheme {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteCategory = /* GraphQL */ `
+  subscription OnDeleteCategory($filter: ModelSubscriptionCategoryFilterInput) {
+    onDeleteCategory(filter: $filter) {
+      id
+      name
+      SubTheme {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateSubTheme = /* GraphQL */ `
+  subscription OnCreateSubTheme($filter: ModelSubscriptionSubThemeFilterInput) {
+    onCreateSubTheme(filter: $filter) {
+      id
+      name
+      TextPost {
+        items {
+          id
+          title
+          content
+          createdAt
+          updatedAt
+          userTextsId
+          subThemeTextPostId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Category {
+        id
+        name
+        SubTheme {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      categorySubThemeId
+      __typename
+    }
+  }
+`;
+export const onUpdateSubTheme = /* GraphQL */ `
+  subscription OnUpdateSubTheme($filter: ModelSubscriptionSubThemeFilterInput) {
+    onUpdateSubTheme(filter: $filter) {
+      id
+      name
+      TextPost {
+        items {
+          id
+          title
+          content
+          createdAt
+          updatedAt
+          userTextsId
+          subThemeTextPostId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Category {
+        id
+        name
+        SubTheme {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      categorySubThemeId
+      __typename
+    }
+  }
+`;
+export const onDeleteSubTheme = /* GraphQL */ `
+  subscription OnDeleteSubTheme($filter: ModelSubscriptionSubThemeFilterInput) {
+    onDeleteSubTheme(filter: $filter) {
+      id
+      name
+      TextPost {
+        items {
+          id
+          title
+          content
+          createdAt
+          updatedAt
+          userTextsId
+          subThemeTextPostId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Category {
+        id
+        name
+        SubTheme {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      categorySubThemeId
+      __typename
+    }
+  }
+`;
 export const onCreateTextPost = /* GraphQL */ `
   subscription OnCreateTextPost($filter: ModelSubscriptionTextPostFilterInput) {
     onCreateTextPost(filter: $filter) {
@@ -231,9 +414,29 @@ export const onCreateTextPost = /* GraphQL */ `
         updatedAt
         __typename
       }
+      SubTheme {
+        id
+        name
+        TextPost {
+          nextToken
+          __typename
+        }
+        Category {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        categorySubThemeId
+        __typename
+      }
       createdAt
       updatedAt
       userTextsId
+      subThemeTextPostId
       __typename
     }
   }
@@ -260,9 +463,29 @@ export const onUpdateTextPost = /* GraphQL */ `
         updatedAt
         __typename
       }
+      SubTheme {
+        id
+        name
+        TextPost {
+          nextToken
+          __typename
+        }
+        Category {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        categorySubThemeId
+        __typename
+      }
       createdAt
       updatedAt
       userTextsId
+      subThemeTextPostId
       __typename
     }
   }
@@ -289,9 +512,29 @@ export const onDeleteTextPost = /* GraphQL */ `
         updatedAt
         __typename
       }
+      SubTheme {
+        id
+        name
+        TextPost {
+          nextToken
+          __typename
+        }
+        Category {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        categorySubThemeId
+        __typename
+      }
       createdAt
       updatedAt
       userTextsId
+      subThemeTextPostId
       __typename
     }
   }

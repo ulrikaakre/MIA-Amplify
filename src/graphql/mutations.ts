@@ -32,6 +32,7 @@ export const createUser = /* GraphQL */ `
           createdAt
           updatedAt
           userTextsId
+          subThemeTextPostId
           __typename
         }
         nextToken
@@ -73,6 +74,7 @@ export const updateUser = /* GraphQL */ `
           createdAt
           updatedAt
           userTextsId
+          subThemeTextPostId
           __typename
         }
         nextToken
@@ -114,6 +116,7 @@ export const deleteUser = /* GraphQL */ `
           createdAt
           updatedAt
           userTextsId
+          subThemeTextPostId
           __typename
         }
         nextToken
@@ -221,6 +224,204 @@ export const deleteVideoPost = /* GraphQL */ `
     }
   }
 `;
+export const createCategory = /* GraphQL */ `
+  mutation CreateCategory(
+    $input: CreateCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    createCategory(input: $input, condition: $condition) {
+      id
+      name
+      SubTheme {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateCategory = /* GraphQL */ `
+  mutation UpdateCategory(
+    $input: UpdateCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    updateCategory(input: $input, condition: $condition) {
+      id
+      name
+      SubTheme {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteCategory = /* GraphQL */ `
+  mutation DeleteCategory(
+    $input: DeleteCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    deleteCategory(input: $input, condition: $condition) {
+      id
+      name
+      SubTheme {
+        items {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createSubTheme = /* GraphQL */ `
+  mutation CreateSubTheme(
+    $input: CreateSubThemeInput!
+    $condition: ModelSubThemeConditionInput
+  ) {
+    createSubTheme(input: $input, condition: $condition) {
+      id
+      name
+      TextPost {
+        items {
+          id
+          title
+          content
+          createdAt
+          updatedAt
+          userTextsId
+          subThemeTextPostId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Category {
+        id
+        name
+        SubTheme {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      categorySubThemeId
+      __typename
+    }
+  }
+`;
+export const updateSubTheme = /* GraphQL */ `
+  mutation UpdateSubTheme(
+    $input: UpdateSubThemeInput!
+    $condition: ModelSubThemeConditionInput
+  ) {
+    updateSubTheme(input: $input, condition: $condition) {
+      id
+      name
+      TextPost {
+        items {
+          id
+          title
+          content
+          createdAt
+          updatedAt
+          userTextsId
+          subThemeTextPostId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Category {
+        id
+        name
+        SubTheme {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      categorySubThemeId
+      __typename
+    }
+  }
+`;
+export const deleteSubTheme = /* GraphQL */ `
+  mutation DeleteSubTheme(
+    $input: DeleteSubThemeInput!
+    $condition: ModelSubThemeConditionInput
+  ) {
+    deleteSubTheme(input: $input, condition: $condition) {
+      id
+      name
+      TextPost {
+        items {
+          id
+          title
+          content
+          createdAt
+          updatedAt
+          userTextsId
+          subThemeTextPostId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      Category {
+        id
+        name
+        SubTheme {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      categorySubThemeId
+      __typename
+    }
+  }
+`;
 export const createTextPost = /* GraphQL */ `
   mutation CreateTextPost(
     $input: CreateTextPostInput!
@@ -246,9 +447,29 @@ export const createTextPost = /* GraphQL */ `
         updatedAt
         __typename
       }
+      SubTheme {
+        id
+        name
+        TextPost {
+          nextToken
+          __typename
+        }
+        Category {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        categorySubThemeId
+        __typename
+      }
       createdAt
       updatedAt
       userTextsId
+      subThemeTextPostId
       __typename
     }
   }
@@ -278,9 +499,29 @@ export const updateTextPost = /* GraphQL */ `
         updatedAt
         __typename
       }
+      SubTheme {
+        id
+        name
+        TextPost {
+          nextToken
+          __typename
+        }
+        Category {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        categorySubThemeId
+        __typename
+      }
       createdAt
       updatedAt
       userTextsId
+      subThemeTextPostId
       __typename
     }
   }
@@ -310,9 +551,29 @@ export const deleteTextPost = /* GraphQL */ `
         updatedAt
         __typename
       }
+      SubTheme {
+        id
+        name
+        TextPost {
+          nextToken
+          __typename
+        }
+        Category {
+          id
+          name
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        categorySubThemeId
+        __typename
+      }
       createdAt
       updatedAt
       userTextsId
+      subThemeTextPostId
       __typename
     }
   }

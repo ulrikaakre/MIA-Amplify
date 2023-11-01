@@ -38,6 +38,20 @@ export const createUser = /* GraphQL */ `
         nextToken
         __typename
       }
+      savedTextPosts {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -75,6 +89,20 @@ export const updateUser = /* GraphQL */ `
           updatedAt
           userTextsId
           subThemeTextPostId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      savedTextPosts {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
           __typename
         }
         nextToken
@@ -122,6 +150,20 @@ export const deleteUser = /* GraphQL */ `
         nextToken
         __typename
       }
+      savedTextPosts {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -146,6 +188,10 @@ export const createVideoPost = /* GraphQL */ `
           __typename
         }
         texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
           nextToken
           __typename
         }
@@ -181,6 +227,10 @@ export const updateVideoPost = /* GraphQL */ `
           nextToken
           __typename
         }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -210,6 +260,10 @@ export const deleteVideoPost = /* GraphQL */ `
           __typename
         }
         texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
           nextToken
           __typename
         }
@@ -443,6 +497,10 @@ export const createTextPost = /* GraphQL */ `
           nextToken
           __typename
         }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -464,6 +522,20 @@ export const createTextPost = /* GraphQL */ `
         createdAt
         updatedAt
         categorySubThemeId
+        __typename
+      }
+      savedByUsers {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
+          __typename
+        }
+        nextToken
         __typename
       }
       createdAt
@@ -495,6 +567,10 @@ export const updateTextPost = /* GraphQL */ `
           nextToken
           __typename
         }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -516,6 +592,20 @@ export const updateTextPost = /* GraphQL */ `
         createdAt
         updatedAt
         categorySubThemeId
+        __typename
+      }
+      savedByUsers {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
+          __typename
+        }
+        nextToken
         __typename
       }
       createdAt
@@ -547,6 +637,10 @@ export const deleteTextPost = /* GraphQL */ `
           nextToken
           __typename
         }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -570,10 +664,225 @@ export const deleteTextPost = /* GraphQL */ `
         categorySubThemeId
         __typename
       }
+      savedByUsers {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       userTextsId
       subThemeTextPostId
+      __typename
+    }
+  }
+`;
+export const createSavedTextPost = /* GraphQL */ `
+  mutation CreateSavedTextPost(
+    $input: CreateSavedTextPostInput!
+    $condition: ModelSavedTextPostConditionInput
+  ) {
+    createSavedTextPost(input: $input, condition: $condition) {
+      id
+      userId
+      textPostId
+      user {
+        id
+        username
+        email
+        videos {
+          nextToken
+          __typename
+        }
+        texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      textPost {
+        id
+        title
+        content
+        user {
+          id
+          username
+          email
+          createdAt
+          updatedAt
+          __typename
+        }
+        SubTheme {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        savedByUsers {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        userTextsId
+        subThemeTextPostId
+        __typename
+      }
+      createdAt
+      updatedAt
+      userSavedTextPostsId
+      textPostSavedByUsersId
+      __typename
+    }
+  }
+`;
+export const updateSavedTextPost = /* GraphQL */ `
+  mutation UpdateSavedTextPost(
+    $input: UpdateSavedTextPostInput!
+    $condition: ModelSavedTextPostConditionInput
+  ) {
+    updateSavedTextPost(input: $input, condition: $condition) {
+      id
+      userId
+      textPostId
+      user {
+        id
+        username
+        email
+        videos {
+          nextToken
+          __typename
+        }
+        texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      textPost {
+        id
+        title
+        content
+        user {
+          id
+          username
+          email
+          createdAt
+          updatedAt
+          __typename
+        }
+        SubTheme {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        savedByUsers {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        userTextsId
+        subThemeTextPostId
+        __typename
+      }
+      createdAt
+      updatedAt
+      userSavedTextPostsId
+      textPostSavedByUsersId
+      __typename
+    }
+  }
+`;
+export const deleteSavedTextPost = /* GraphQL */ `
+  mutation DeleteSavedTextPost(
+    $input: DeleteSavedTextPostInput!
+    $condition: ModelSavedTextPostConditionInput
+  ) {
+    deleteSavedTextPost(input: $input, condition: $condition) {
+      id
+      userId
+      textPostId
+      user {
+        id
+        username
+        email
+        videos {
+          nextToken
+          __typename
+        }
+        texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      textPost {
+        id
+        title
+        content
+        user {
+          id
+          username
+          email
+          createdAt
+          updatedAt
+          __typename
+        }
+        SubTheme {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        savedByUsers {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        userTextsId
+        subThemeTextPostId
+        __typename
+      }
+      createdAt
+      updatedAt
+      userSavedTextPostsId
+      textPostSavedByUsersId
       __typename
     }
   }

@@ -35,6 +35,20 @@ export const onCreateUser = /* GraphQL */ `
         nextToken
         __typename
       }
+      savedTextPosts {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -69,6 +83,20 @@ export const onUpdateUser = /* GraphQL */ `
           updatedAt
           userTextsId
           subThemeTextPostId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      savedTextPosts {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
           __typename
         }
         nextToken
@@ -113,6 +141,20 @@ export const onDeleteUser = /* GraphQL */ `
         nextToken
         __typename
       }
+      savedTextPosts {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -136,6 +178,10 @@ export const onCreateVideoPost = /* GraphQL */ `
           __typename
         }
         texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
           nextToken
           __typename
         }
@@ -170,6 +216,10 @@ export const onUpdateVideoPost = /* GraphQL */ `
           nextToken
           __typename
         }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -198,6 +248,10 @@ export const onDeleteVideoPost = /* GraphQL */ `
           __typename
         }
         texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
           nextToken
           __typename
         }
@@ -410,6 +464,10 @@ export const onCreateTextPost = /* GraphQL */ `
           nextToken
           __typename
         }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -431,6 +489,20 @@ export const onCreateTextPost = /* GraphQL */ `
         createdAt
         updatedAt
         categorySubThemeId
+        __typename
+      }
+      savedByUsers {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
+          __typename
+        }
+        nextToken
         __typename
       }
       createdAt
@@ -459,6 +531,10 @@ export const onUpdateTextPost = /* GraphQL */ `
           nextToken
           __typename
         }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -480,6 +556,20 @@ export const onUpdateTextPost = /* GraphQL */ `
         createdAt
         updatedAt
         categorySubThemeId
+        __typename
+      }
+      savedByUsers {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
+          __typename
+        }
+        nextToken
         __typename
       }
       createdAt
@@ -508,6 +598,10 @@ export const onDeleteTextPost = /* GraphQL */ `
           nextToken
           __typename
         }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -531,10 +625,222 @@ export const onDeleteTextPost = /* GraphQL */ `
         categorySubThemeId
         __typename
       }
+      savedByUsers {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       userTextsId
       subThemeTextPostId
+      __typename
+    }
+  }
+`;
+export const onCreateSavedTextPost = /* GraphQL */ `
+  subscription OnCreateSavedTextPost(
+    $filter: ModelSubscriptionSavedTextPostFilterInput
+  ) {
+    onCreateSavedTextPost(filter: $filter) {
+      id
+      userId
+      textPostId
+      user {
+        id
+        username
+        email
+        videos {
+          nextToken
+          __typename
+        }
+        texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      textPost {
+        id
+        title
+        content
+        user {
+          id
+          username
+          email
+          createdAt
+          updatedAt
+          __typename
+        }
+        SubTheme {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        savedByUsers {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        userTextsId
+        subThemeTextPostId
+        __typename
+      }
+      createdAt
+      updatedAt
+      userSavedTextPostsId
+      textPostSavedByUsersId
+      __typename
+    }
+  }
+`;
+export const onUpdateSavedTextPost = /* GraphQL */ `
+  subscription OnUpdateSavedTextPost(
+    $filter: ModelSubscriptionSavedTextPostFilterInput
+  ) {
+    onUpdateSavedTextPost(filter: $filter) {
+      id
+      userId
+      textPostId
+      user {
+        id
+        username
+        email
+        videos {
+          nextToken
+          __typename
+        }
+        texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      textPost {
+        id
+        title
+        content
+        user {
+          id
+          username
+          email
+          createdAt
+          updatedAt
+          __typename
+        }
+        SubTheme {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        savedByUsers {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        userTextsId
+        subThemeTextPostId
+        __typename
+      }
+      createdAt
+      updatedAt
+      userSavedTextPostsId
+      textPostSavedByUsersId
+      __typename
+    }
+  }
+`;
+export const onDeleteSavedTextPost = /* GraphQL */ `
+  subscription OnDeleteSavedTextPost(
+    $filter: ModelSubscriptionSavedTextPostFilterInput
+  ) {
+    onDeleteSavedTextPost(filter: $filter) {
+      id
+      userId
+      textPostId
+      user {
+        id
+        username
+        email
+        videos {
+          nextToken
+          __typename
+        }
+        texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      textPost {
+        id
+        title
+        content
+        user {
+          id
+          username
+          email
+          createdAt
+          updatedAt
+          __typename
+        }
+        SubTheme {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        savedByUsers {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        userTextsId
+        subThemeTextPostId
+        __typename
+      }
+      createdAt
+      updatedAt
+      userSavedTextPostsId
+      textPostSavedByUsersId
       __typename
     }
   }

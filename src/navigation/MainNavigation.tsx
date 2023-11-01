@@ -4,9 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
-import NewComp from "../components/NewComp";
 import Profile from "../components/Profile";
 import TestComp2 from "../components/TestComp2";
+import AppNavigator from "../screens/AppNavigator";
 
 type IconName =
   | "newspaper"
@@ -43,7 +43,7 @@ const MainNavigation = () => {
           headerShown: false,
         })}
       >
-        <Tab.Screen name={feedName} component={NewComp} />
+        <Tab.Screen name={feedName} component={AppNavigator} />
         <Tab.Screen name={addName} component={TestComp2} />
         <Tab.Screen name={profileName} component={Profile} />
       </Tab.Navigator>

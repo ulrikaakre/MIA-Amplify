@@ -56,7 +56,7 @@ export const TextPosts: React.FC = () => {
       };
 
       console.log("---post: ", postContent);
-      console.log("---post: ", selectedSubTheme);
+      console.log("---post halla: ", selectedSubTheme);
 
       // Create text post using mutation
       await API.graphql(graphqlOperation(createTextPost, { input: newPost }));

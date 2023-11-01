@@ -63,6 +63,7 @@ export type User = {
   email: string,
   videos?: ModelVideoPostConnection | null,
   texts?: ModelTextPostConnection | null,
+  savedTextPosts?: ModelSavedTextPostConnection | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -97,6 +98,7 @@ export type TextPost = {
   content: string,
   user?: User | null,
   SubTheme?: SubTheme | null,
+  savedByUsers?: ModelSavedTextPostConnection | null,
   createdAt: string,
   updatedAt: string,
   userTextsId?: string | null,
@@ -127,6 +129,25 @@ export type ModelSubThemeConnection = {
   __typename: "ModelSubThemeConnection",
   items:  Array<SubTheme | null >,
   nextToken?: string | null,
+};
+
+export type ModelSavedTextPostConnection = {
+  __typename: "ModelSavedTextPostConnection",
+  items:  Array<SavedTextPost | null >,
+  nextToken?: string | null,
+};
+
+export type SavedTextPost = {
+  __typename: "SavedTextPost",
+  id: string,
+  userId: string,
+  textPostId: string,
+  user?: User | null,
+  textPost?: TextPost | null,
+  createdAt: string,
+  updatedAt: string,
+  userSavedTextPostsId?: string | null,
+  textPostSavedByUsersId?: string | null,
 };
 
 export type UpdateUserInput = {
@@ -257,6 +278,36 @@ export type DeleteTextPostInput = {
   id: string,
 };
 
+export type CreateSavedTextPostInput = {
+  id?: string | null,
+  userId: string,
+  textPostId: string,
+  userSavedTextPostsId?: string | null,
+  textPostSavedByUsersId?: string | null,
+};
+
+export type ModelSavedTextPostConditionInput = {
+  userId?: ModelIDInput | null,
+  textPostId?: ModelIDInput | null,
+  and?: Array< ModelSavedTextPostConditionInput | null > | null,
+  or?: Array< ModelSavedTextPostConditionInput | null > | null,
+  not?: ModelSavedTextPostConditionInput | null,
+  userSavedTextPostsId?: ModelIDInput | null,
+  textPostSavedByUsersId?: ModelIDInput | null,
+};
+
+export type UpdateSavedTextPostInput = {
+  id: string,
+  userId?: string | null,
+  textPostId?: string | null,
+  userSavedTextPostsId?: string | null,
+  textPostSavedByUsersId?: string | null,
+};
+
+export type DeleteSavedTextPostInput = {
+  id: string,
+};
+
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   username?: ModelStringInput | null,
@@ -314,6 +365,17 @@ export type ModelTextPostFilterInput = {
   not?: ModelTextPostFilterInput | null,
   userTextsId?: ModelIDInput | null,
   subThemeTextPostId?: ModelIDInput | null,
+};
+
+export type ModelSavedTextPostFilterInput = {
+  id?: ModelIDInput | null,
+  userId?: ModelIDInput | null,
+  textPostId?: ModelIDInput | null,
+  and?: Array< ModelSavedTextPostFilterInput | null > | null,
+  or?: Array< ModelSavedTextPostFilterInput | null > | null,
+  not?: ModelSavedTextPostFilterInput | null,
+  userSavedTextPostsId?: ModelIDInput | null,
+  textPostSavedByUsersId?: ModelIDInput | null,
 };
 
 export type ModelSubscriptionUserFilterInput = {
@@ -384,6 +446,14 @@ export type ModelSubscriptionTextPostFilterInput = {
   or?: Array< ModelSubscriptionTextPostFilterInput | null > | null,
 };
 
+export type ModelSubscriptionSavedTextPostFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  userId?: ModelSubscriptionIDInput | null,
+  textPostId?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionSavedTextPostFilterInput | null > | null,
+  or?: Array< ModelSubscriptionSavedTextPostFilterInput | null > | null,
+};
+
 export type CreateUserMutationVariables = {
   input: CreateUserInput,
   condition?: ModelUserConditionInput | null,
@@ -419,6 +489,20 @@ export type CreateUserMutation = {
         updatedAt: string,
         userTextsId?: string | null,
         subThemeTextPostId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    savedTextPosts?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -465,6 +549,20 @@ export type UpdateUserMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    savedTextPosts?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -508,6 +606,20 @@ export type DeleteUserMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    savedTextPosts?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -535,6 +647,10 @@ export type CreateVideoPostMutation = {
       } | null,
       texts?:  {
         __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -570,6 +686,10 @@ export type UpdateVideoPostMutation = {
         __typename: "ModelTextPostConnection",
         nextToken?: string | null,
       } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -601,6 +721,10 @@ export type DeleteVideoPostMutation = {
       } | null,
       texts?:  {
         __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -840,6 +964,10 @@ export type CreateTextPostMutation = {
         __typename: "ModelTextPostConnection",
         nextToken?: string | null,
       } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -861,6 +989,20 @@ export type CreateTextPostMutation = {
       createdAt: string,
       updatedAt: string,
       categorySubThemeId?: string | null,
+    } | null,
+    savedByUsers?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -893,6 +1035,10 @@ export type UpdateTextPostMutation = {
         __typename: "ModelTextPostConnection",
         nextToken?: string | null,
       } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -914,6 +1060,20 @@ export type UpdateTextPostMutation = {
       createdAt: string,
       updatedAt: string,
       categorySubThemeId?: string | null,
+    } | null,
+    savedByUsers?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -946,6 +1106,10 @@ export type DeleteTextPostMutation = {
         __typename: "ModelTextPostConnection",
         nextToken?: string | null,
       } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -968,10 +1132,228 @@ export type DeleteTextPostMutation = {
       updatedAt: string,
       categorySubThemeId?: string | null,
     } | null,
+    savedByUsers?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userTextsId?: string | null,
     subThemeTextPostId?: string | null,
+  } | null,
+};
+
+export type CreateSavedTextPostMutationVariables = {
+  input: CreateSavedTextPostInput,
+  condition?: ModelSavedTextPostConditionInput | null,
+};
+
+export type CreateSavedTextPostMutation = {
+  createSavedTextPost?:  {
+    __typename: "SavedTextPost",
+    id: string,
+    userId: string,
+    textPostId: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username: string,
+      email: string,
+      videos?:  {
+        __typename: "ModelVideoPostConnection",
+        nextToken?: string | null,
+      } | null,
+      texts?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    textPost?:  {
+      __typename: "TextPost",
+      id: string,
+      title: string,
+      content: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        username: string,
+        email: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      SubTheme?:  {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null,
+      savedByUsers?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userTextsId?: string | null,
+      subThemeTextPostId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userSavedTextPostsId?: string | null,
+    textPostSavedByUsersId?: string | null,
+  } | null,
+};
+
+export type UpdateSavedTextPostMutationVariables = {
+  input: UpdateSavedTextPostInput,
+  condition?: ModelSavedTextPostConditionInput | null,
+};
+
+export type UpdateSavedTextPostMutation = {
+  updateSavedTextPost?:  {
+    __typename: "SavedTextPost",
+    id: string,
+    userId: string,
+    textPostId: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username: string,
+      email: string,
+      videos?:  {
+        __typename: "ModelVideoPostConnection",
+        nextToken?: string | null,
+      } | null,
+      texts?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    textPost?:  {
+      __typename: "TextPost",
+      id: string,
+      title: string,
+      content: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        username: string,
+        email: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      SubTheme?:  {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null,
+      savedByUsers?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userTextsId?: string | null,
+      subThemeTextPostId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userSavedTextPostsId?: string | null,
+    textPostSavedByUsersId?: string | null,
+  } | null,
+};
+
+export type DeleteSavedTextPostMutationVariables = {
+  input: DeleteSavedTextPostInput,
+  condition?: ModelSavedTextPostConditionInput | null,
+};
+
+export type DeleteSavedTextPostMutation = {
+  deleteSavedTextPost?:  {
+    __typename: "SavedTextPost",
+    id: string,
+    userId: string,
+    textPostId: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username: string,
+      email: string,
+      videos?:  {
+        __typename: "ModelVideoPostConnection",
+        nextToken?: string | null,
+      } | null,
+      texts?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    textPost?:  {
+      __typename: "TextPost",
+      id: string,
+      title: string,
+      content: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        username: string,
+        email: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      SubTheme?:  {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null,
+      savedByUsers?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userTextsId?: string | null,
+      subThemeTextPostId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userSavedTextPostsId?: string | null,
+    textPostSavedByUsersId?: string | null,
   } | null,
 };
 
@@ -1012,6 +1394,20 @@ export type GetUserQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    savedTextPosts?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1037,6 +1433,10 @@ export type ListUsersQuery = {
       } | null,
       texts?:  {
         __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1067,6 +1467,10 @@ export type GetVideoPostQuery = {
       } | null,
       texts?:  {
         __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1253,6 +1657,10 @@ export type GetTextPostQuery = {
         __typename: "ModelTextPostConnection",
         nextToken?: string | null,
       } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1274,6 +1682,20 @@ export type GetTextPostQuery = {
       createdAt: string,
       updatedAt: string,
       categorySubThemeId?: string | null,
+    } | null,
+    savedByUsers?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1312,10 +1734,122 @@ export type ListTextPostsQuery = {
         updatedAt: string,
         categorySubThemeId?: string | null,
       } | null,
+      savedByUsers?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       userTextsId?: string | null,
       subThemeTextPostId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetSavedTextPostQueryVariables = {
+  id: string,
+};
+
+export type GetSavedTextPostQuery = {
+  getSavedTextPost?:  {
+    __typename: "SavedTextPost",
+    id: string,
+    userId: string,
+    textPostId: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username: string,
+      email: string,
+      videos?:  {
+        __typename: "ModelVideoPostConnection",
+        nextToken?: string | null,
+      } | null,
+      texts?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    textPost?:  {
+      __typename: "TextPost",
+      id: string,
+      title: string,
+      content: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        username: string,
+        email: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      SubTheme?:  {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null,
+      savedByUsers?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userTextsId?: string | null,
+      subThemeTextPostId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userSavedTextPostsId?: string | null,
+    textPostSavedByUsersId?: string | null,
+  } | null,
+};
+
+export type ListSavedTextPostsQueryVariables = {
+  filter?: ModelSavedTextPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListSavedTextPostsQuery = {
+  listSavedTextPosts?:  {
+    __typename: "ModelSavedTextPostConnection",
+    items:  Array< {
+      __typename: "SavedTextPost",
+      id: string,
+      userId: string,
+      textPostId: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        username: string,
+        email: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      textPost?:  {
+        __typename: "TextPost",
+        id: string,
+        title: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userTextsId?: string | null,
+        subThemeTextPostId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userSavedTextPostsId?: string | null,
+      textPostSavedByUsersId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1355,6 +1889,20 @@ export type OnCreateUserSubscription = {
         updatedAt: string,
         userTextsId?: string | null,
         subThemeTextPostId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    savedTextPosts?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1400,6 +1948,20 @@ export type OnUpdateUserSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    savedTextPosts?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1442,6 +2004,20 @@ export type OnDeleteUserSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    savedTextPosts?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1468,6 +2044,10 @@ export type OnCreateVideoPostSubscription = {
       } | null,
       texts?:  {
         __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1502,6 +2082,10 @@ export type OnUpdateVideoPostSubscription = {
         __typename: "ModelTextPostConnection",
         nextToken?: string | null,
       } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1532,6 +2116,10 @@ export type OnDeleteVideoPostSubscription = {
       } | null,
       texts?:  {
         __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -1764,6 +2352,10 @@ export type OnCreateTextPostSubscription = {
         __typename: "ModelTextPostConnection",
         nextToken?: string | null,
       } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1785,6 +2377,20 @@ export type OnCreateTextPostSubscription = {
       createdAt: string,
       updatedAt: string,
       categorySubThemeId?: string | null,
+    } | null,
+    savedByUsers?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1816,6 +2422,10 @@ export type OnUpdateTextPostSubscription = {
         __typename: "ModelTextPostConnection",
         nextToken?: string | null,
       } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1837,6 +2447,20 @@ export type OnUpdateTextPostSubscription = {
       createdAt: string,
       updatedAt: string,
       categorySubThemeId?: string | null,
+    } | null,
+    savedByUsers?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1868,6 +2492,10 @@ export type OnDeleteTextPostSubscription = {
         __typename: "ModelTextPostConnection",
         nextToken?: string | null,
       } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -1890,9 +2518,224 @@ export type OnDeleteTextPostSubscription = {
       updatedAt: string,
       categorySubThemeId?: string | null,
     } | null,
+    savedByUsers?:  {
+      __typename: "ModelSavedTextPostConnection",
+      items:  Array< {
+        __typename: "SavedTextPost",
+        id: string,
+        userId: string,
+        textPostId: string,
+        createdAt: string,
+        updatedAt: string,
+        userSavedTextPostsId?: string | null,
+        textPostSavedByUsersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     userTextsId?: string | null,
     subThemeTextPostId?: string | null,
+  } | null,
+};
+
+export type OnCreateSavedTextPostSubscriptionVariables = {
+  filter?: ModelSubscriptionSavedTextPostFilterInput | null,
+};
+
+export type OnCreateSavedTextPostSubscription = {
+  onCreateSavedTextPost?:  {
+    __typename: "SavedTextPost",
+    id: string,
+    userId: string,
+    textPostId: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username: string,
+      email: string,
+      videos?:  {
+        __typename: "ModelVideoPostConnection",
+        nextToken?: string | null,
+      } | null,
+      texts?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    textPost?:  {
+      __typename: "TextPost",
+      id: string,
+      title: string,
+      content: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        username: string,
+        email: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      SubTheme?:  {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null,
+      savedByUsers?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userTextsId?: string | null,
+      subThemeTextPostId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userSavedTextPostsId?: string | null,
+    textPostSavedByUsersId?: string | null,
+  } | null,
+};
+
+export type OnUpdateSavedTextPostSubscriptionVariables = {
+  filter?: ModelSubscriptionSavedTextPostFilterInput | null,
+};
+
+export type OnUpdateSavedTextPostSubscription = {
+  onUpdateSavedTextPost?:  {
+    __typename: "SavedTextPost",
+    id: string,
+    userId: string,
+    textPostId: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username: string,
+      email: string,
+      videos?:  {
+        __typename: "ModelVideoPostConnection",
+        nextToken?: string | null,
+      } | null,
+      texts?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    textPost?:  {
+      __typename: "TextPost",
+      id: string,
+      title: string,
+      content: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        username: string,
+        email: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      SubTheme?:  {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null,
+      savedByUsers?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userTextsId?: string | null,
+      subThemeTextPostId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userSavedTextPostsId?: string | null,
+    textPostSavedByUsersId?: string | null,
+  } | null,
+};
+
+export type OnDeleteSavedTextPostSubscriptionVariables = {
+  filter?: ModelSubscriptionSavedTextPostFilterInput | null,
+};
+
+export type OnDeleteSavedTextPostSubscription = {
+  onDeleteSavedTextPost?:  {
+    __typename: "SavedTextPost",
+    id: string,
+    userId: string,
+    textPostId: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      username: string,
+      email: string,
+      videos?:  {
+        __typename: "ModelVideoPostConnection",
+        nextToken?: string | null,
+      } | null,
+      texts?:  {
+        __typename: "ModelTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      savedTextPosts?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    textPost?:  {
+      __typename: "TextPost",
+      id: string,
+      title: string,
+      content: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        username: string,
+        email: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      SubTheme?:  {
+        __typename: "SubTheme",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+        categorySubThemeId?: string | null,
+      } | null,
+      savedByUsers?:  {
+        __typename: "ModelSavedTextPostConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userTextsId?: string | null,
+      subThemeTextPostId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    userSavedTextPostsId?: string | null,
+    textPostSavedByUsersId?: string | null,
   } | null,
 };

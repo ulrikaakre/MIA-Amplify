@@ -1,6 +1,14 @@
 import { API, graphqlOperation } from "aws-amplify";
 import React, { useEffect, useState } from "react";
-import { Button, SafeAreaView, ScrollView, Text } from "react-native";
+import {
+  Button,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import {
   listCategories,
@@ -69,41 +77,95 @@ const NewComp = () => {
   }, [selectedSubTheme]);
 
   return (
-    <SafeAreaView style={{ flex: 1, padding: 20 }}>
-      <ScrollView>
-        {!selectedCategory &&
-          categories.map((category) => (
-            <Button
-              key={category.id}
-              title={category.name}
-              onPress={() => setSelectedCategory(category)}
-            />
-          ))}
-
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        {(selectedCategory || selectedSubTheme) && (
+          <Button
+            title="← Go Back"
+            onPress={() => {
+              if (selectedSubTheme) setSelectedSubTheme(null);
+              else setSelectedCategory(null);
+            }}
+          />
+        )}
+      </View>
+      <ScrollView style={styles.content}>
+        {!selectedCategory && (
+          <View style={styles.row}>
+            {categories.map((category, index) => (
+              <TouchableOpacity
+                key={category.id}
+                style={styles.tile}
+                onPress={() => setSelectedCategory(category)}
+              >
+                <Text style={styles.tileText}>{category.name}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
         {selectedCategory &&
           !selectedSubTheme &&
           subThemes.map((subTheme) => (
-            <Button
+            <TouchableOpacity
               key={subTheme.id}
-              title={subTheme.name}
+              style={styles.tileSubtheme}
               onPress={() => setSelectedSubTheme(subTheme)}
-            />
+            >
+              <Text style={styles.tileText}>{subTheme.name}</Text>
+            </TouchableOpacity>
           ))}
 
         {selectedSubTheme &&
-          textPosts.map((post) => <Text key={post.id}>{post.title}</Text>)}
+          textPosts.map((post) => (
+            <View key={post.id}>
+              <Text>{post.title}</Text>
+              <Text>{post.content}</Text>
+            </View>
+          ))}
       </ScrollView>
-      {(selectedCategory || selectedSubTheme) && (
-        <Button
-          title="Go Back"
-          onPress={() => {
-            if (selectedSubTheme) setSelectedSubTheme(null);
-            else setSelectedCategory(null);
-          }}
-        />
-      )}
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  content: {
+    flex: 1,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  tile: {
+    width: "45%",
+    padding: 10,
+    margin: 5,
+    backgroundColor: "#ddd",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 7,
+  },
+  tileSubtheme: {
+    width: "90%",
+    padding: 10,
+    margin: 5,
+    backgroundColor: "#ddd",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 7,
+  },
+  tileText: {
+    color: "black",
+    textAlign: "center",
+  },
+});
 
 export default NewComp;

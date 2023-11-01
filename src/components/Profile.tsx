@@ -1,6 +1,14 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { Auth } from "aws-amplify";
 import React from "react";
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -14,11 +22,24 @@ const SavedScreen = () => (
     <Text style={{ color: "white" }}>Saved Screen</Text>
   </View>
 );
-const SettingsScreen = () => (
-  <View style={styles.content}>
-    <Text style={{ color: "white" }}>Settings Screen</Text>
-  </View>
-);
+const SettingsScreen = () => {
+  const handleLogout = async () => {
+    try {
+      await Auth.signOut();
+      console.log("User successfully signed out");
+      // Optionally, you can redirect the user to a login page or update the UI state
+    } catch (error) {
+      console.error("Error signing out user", error);
+    }
+  };
+
+  return (
+    <View style={styles.content}>
+      {/* <Text style={{ color: "white" }}>Settings Screen</Text> */}
+      <Button title="Sign Out" onPress={handleLogout} />
+    </View>
+  );
+};
 
 const MyTabs = () => {
   // const insets = useSafeAreaInsets();

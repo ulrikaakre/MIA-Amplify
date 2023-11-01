@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-miaamplify-dev-233505-unauthRole",
       "StackName": "amplify-miaamplify-dev-233505",
       "StackId": "arn:aws:cloudformation:eu-north-1:686567764433:stack/amplify-miaamplify-dev-233505/a7bb1c90-1144-11ee-849d-069f1a3ef628",
-      "AmplifyAppId": "def7ym1cke6ae"
+      "AmplifyAppId": "def7ym1cke6ae",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-miaamplify-dev-233505-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
@@ -21,10 +22,14 @@
       "function": {
         "miaamplifyd794a481": {
           "deploymentBucketName": "amplify-miaamplify-dev-233505-deployment",
-          "s3Key": "amplify-builds/miaamplifyd794a481-39445978645a7553454b-build.zip",
+          "s3Key": "amplify-builds/miaamplifyd794a481-57543471795277306362-build.zip",
           "apiMiaamplifyGraphqlapiendpointoutput": "https://4cv3j245xzf2tjyrfhtzx65nr4.appsync-api.eu-north-1.amazonaws.com/graphql",
           "apiMiaamplifyGraphqlapiidoutput": "ylxwvlkt3vejlo7u6qq5qlxv6e",
           "apiMiaamplifyGraphqlapikeyoutput": "da2-g26yv5mqsvffxlr2rwytme32be"
+        },
+        "miaamplifye5a3e849PreSignup": {
+          "deploymentBucketName": "amplify-miaamplify-dev-233505-deployment",
+          "s3Key": "amplify-builds/miaamplifye5a3e849PreSignup-71653730665368475249-build.zip"
         }
       }
     }

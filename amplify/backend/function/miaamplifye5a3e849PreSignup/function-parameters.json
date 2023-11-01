@@ -1,0 +1,23 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "miaamplifye5a3e849",
+  "functionName": "miaamplifye5a3e849PreSignup",
+  "resourceName": "miaamplifye5a3e849PreSignup",
+  "parentStack": "auth",
+  "triggerEnvs": "[]",
+  "triggerDir": "/snapshot/repo/build/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/PreSignup",
+  "triggerTemplate": "PreSignup.json.ejs",
+  "triggerEventPath": "PreSignup.event.json",
+  "roleName": "miaamplifye5a3e849PreSignup",
+  "skipEdit": true,
+  "permissions": {
+    "api": {
+      "miaamplify": [
+        "Mutation"
+      ]
+    }
+  }
+}

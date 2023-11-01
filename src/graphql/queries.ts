@@ -35,6 +35,20 @@ export const getUser = /* GraphQL */ `
         nextToken
         __typename
       }
+      savedTextPosts {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -57,6 +71,10 @@ export const listUsers = /* GraphQL */ `
           __typename
         }
         texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
           nextToken
           __typename
         }
@@ -84,6 +102,10 @@ export const getVideoPost = /* GraphQL */ `
           __typename
         }
         texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
           nextToken
           __typename
         }
@@ -259,6 +281,10 @@ export const getTextPost = /* GraphQL */ `
           nextToken
           __typename
         }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         __typename
@@ -280,6 +306,20 @@ export const getTextPost = /* GraphQL */ `
         createdAt
         updatedAt
         categorySubThemeId
+        __typename
+      }
+      savedByUsers {
+        items {
+          id
+          userId
+          textPostId
+          createdAt
+          updatedAt
+          userSavedTextPostsId
+          textPostSavedByUsersId
+          __typename
+        }
+        nextToken
         __typename
       }
       createdAt
@@ -317,10 +357,118 @@ export const listTextPosts = /* GraphQL */ `
           categorySubThemeId
           __typename
         }
+        savedByUsers {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         userTextsId
         subThemeTextPostId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getSavedTextPost = /* GraphQL */ `
+  query GetSavedTextPost($id: ID!) {
+    getSavedTextPost(id: $id) {
+      id
+      userId
+      textPostId
+      user {
+        id
+        username
+        email
+        videos {
+          nextToken
+          __typename
+        }
+        texts {
+          nextToken
+          __typename
+        }
+        savedTextPosts {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      textPost {
+        id
+        title
+        content
+        user {
+          id
+          username
+          email
+          createdAt
+          updatedAt
+          __typename
+        }
+        SubTheme {
+          id
+          name
+          createdAt
+          updatedAt
+          categorySubThemeId
+          __typename
+        }
+        savedByUsers {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        userTextsId
+        subThemeTextPostId
+        __typename
+      }
+      createdAt
+      updatedAt
+      userSavedTextPostsId
+      textPostSavedByUsersId
+      __typename
+    }
+  }
+`;
+export const listSavedTextPosts = /* GraphQL */ `
+  query ListSavedTextPosts(
+    $filter: ModelSavedTextPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSavedTextPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userId
+        textPostId
+        user {
+          id
+          username
+          email
+          createdAt
+          updatedAt
+          __typename
+        }
+        textPost {
+          id
+          title
+          content
+          createdAt
+          updatedAt
+          userTextsId
+          subThemeTextPostId
+          __typename
+        }
+        createdAt
+        updatedAt
+        userSavedTextPostsId
+        textPostSavedByUsersId
         __typename
       }
       nextToken

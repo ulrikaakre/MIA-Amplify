@@ -9,6 +9,7 @@ type User @model {
   email: String!
   videos: [VideoPost] @hasMany
   texts: [TextPost] @hasMany
+  savedTextPosts: [SavedTextPost] @hasMany
 }
 
 type VideoPost @model {
@@ -37,4 +38,13 @@ type TextPost @model {
   content: String!
   user: User @belongsTo
   SubTheme: SubTheme @belongsTo
+  savedByUsers: [SavedTextPost] @hasMany
+}
+
+type SavedTextPost @model {
+  id: ID!
+  userId: ID!
+  textPostId: ID!
+  user: User @belongsTo(fields: ["userId"])
+  textPost: TextPost @belongsTo(fields: ["textPostId"])
 }

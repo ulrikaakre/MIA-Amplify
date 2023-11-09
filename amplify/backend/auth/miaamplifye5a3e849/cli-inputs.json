@@ -54,31 +54,16 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": [
-      {
-        "category": "function",
-        "resourceName": "miaamplifye5a3e849PreSignup",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      }
-    ],
+    "dependsOn": [],
     "thirdPartyAuth": false,
     "userPoolGroups": false,
     "adminQueries": false,
-    "triggers": {
-      "PreSignup": [
-        "custom"
-      ]
-    },
+    "triggers": {},
     "hostedUI": false,
     "authProviders": [],
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "permissions": [],
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PreSignUp\",\n    \"lambdaFunctionName\": \"miaamplifye5a3e849PreSignup\"\n  }\n]"
+    "permissions": []
   }
 }

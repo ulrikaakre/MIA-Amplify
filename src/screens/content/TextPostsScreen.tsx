@@ -17,6 +17,7 @@ const TextPostsScreen = ({ route }: any) => {
             filter: { subThemeTextPostId: { eq: subTheme.id } },
           })
         );
+        console.log("What: ", textPostData.data.listTextPosts.items);
         setTextPosts(textPostData.data.listTextPosts.items);
       } catch (error) {
         console.error("Error fetching text posts", error);
@@ -32,6 +33,8 @@ const TextPostsScreen = ({ route }: any) => {
         {textPosts.map((post) => (
           <View key={post.id} style={styles.post}>
             <Text style={styles.postTitle}>{post.title}</Text>
+            <Text style={styles.postContent}>Username: {post.userTextsId}</Text>
+            <Text style={styles.postContent}>Username: {post.user}</Text>
             <Text style={styles.postContent}>{post.content}</Text>
           </View>
         ))}

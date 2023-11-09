@@ -1,5 +1,5 @@
 import { Picker } from "@react-native-picker/picker";
-import { API, graphqlOperation } from "aws-amplify";
+import { API, Auth, graphqlOperation } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import { Button, SafeAreaView, StyleSheet, TextInput } from "react-native";
 
@@ -27,6 +27,17 @@ export const TextPosts: React.FC = () => {
         console.error("Error fetching categories:", err);
       }
     };
+    const fetchCurrentUser = async () => {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        setCurrentUser(user);
+        console.log("user: ", user.username);
+      } catch (error) {
+        console.log("Error fetching user", error);
+      }
+    };
+
+    fetchCurrentUser();
 
     fetchCategories();
   }, []);
@@ -52,6 +63,7 @@ export const TextPosts: React.FC = () => {
       const newPost = {
         title: postTitle,
         content: postContent,
+        userTextsId: currentUser.attributes.sub, // Assuming 'sub' is the unique ID for the user
         subThemeTextPostId: selectedSubTheme, // Assuming 'selectedSubTheme' is the selected sub-theme's ID
       };
 
